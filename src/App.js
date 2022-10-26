@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'
-import got from 'got';
+//import got from 'got';
 import request from 'superagent'
 import './App.css';
 import Checkbox from './components/Buttons/Checkbox';
@@ -15,14 +15,14 @@ function App() {
   const [filterList, setFilterList] = useState(null)
   const [filterLetter, setFilterLetter] = useState(null)
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetch(URL).then(res => res.json())
       .then(data => {
         setWords(data)
         setFilterList(data)
         setFilterLetter(data)
       })
-  }, [])
+  }, []) */
 
   /* useEffect(() => {
     axios.get(URL).then(response => {
@@ -32,14 +32,15 @@ function App() {
     })
   }, []) */
 
-  /* useEffect(() => {
+  useEffect(() => {
     request.get(URL).then(response => {
-      setWords(response.data)
-      setFilterList(response.data)
-      setFilterLetter(response.data)
+      console.log(response)
+      setWords(response.body)
+      setFilterList(response.body)
+      setFilterLetter(response.body)
     })
   }, [])
- */
+
   const onSearch = (value) => {
     const searchList = filterList.filter(word => {
       return word.title.toLocaleLowerCase().includes(value.toLocaleLowerCase())
