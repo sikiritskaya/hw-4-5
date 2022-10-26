@@ -1,24 +1,41 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Checkbox from './components/Buttons/Checkbox';
+import Search from './components/Search/Search';
+//import Words from './components/Words/Words';
 
 function App() {
+
+  const [words, setWords] = useState(['california', 'everything', 'aboveboard', 'washington', 'basketball', 'weathering', 'characters', 'literature', 'contraband', 'appreciate'])
+  const [filterList, setFilterList] = useState(words)
+  const [filterLetter, setFilterLetter] = useState(words.slice().sort())
+  
+
+  const onSearch = (value) => {
+    const searchList = filterList.filter(word => {
+      return word.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+    })
+    setWords(searchList)
+  }
+
+  const onChecked = (checked) => {
+    console.log(words)
+    if (!checked) {
+      return setFilterLetter(filterLetter)
+    } 
+    if(checked){
+      return setWords(words)
+    }
+  }
+  const reset = () => {
+    return true
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Search onSearch={onSearch} reset={reset} />
+      <Checkbox words={words} reset={reset} filterLetter={filterLetter} onChecked={onChecked} /* setWords={setWords} */ />
+      {/* <Words words={words} /> */}
+    </>
   );
 }
 
