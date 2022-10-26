@@ -11,15 +11,18 @@ function App() {
   const [filterLetter, setFilterLetter] = useState(words.slice().sort())
   
 
-  const onSearch = (value) => {
-    const searchList = filterList.filter(word => {
+  const onSearch = (value, checked) => {
+    const list = !checked ? filterList : filterLetter
+    console.log(checked)
+    const searchList = list.filter(word => {
       return word.toLocaleLowerCase().includes(value.toLocaleLowerCase())
     })
     setWords(searchList)
   }
 
   const onChecked = (checked) => {
-    console.log(words)
+    //console.log(words)
+    //const newArr = filterLetter.slice().sort()
     if (!checked) {
       return setFilterLetter(filterLetter)
     } 
@@ -27,13 +30,13 @@ function App() {
       return setWords(words)
     }
   }
-  const reset = () => {
+  /* const reset = () => {
     return true
-  }
+  } */
   return (
     <>
-      <Search onSearch={onSearch} reset={reset} />
-      <Checkbox words={words} reset={reset} filterLetter={filterLetter} onChecked={onChecked} /* setWords={setWords} */ />
+      {/* <Search onSearch={onSearch} reset={reset} /> */}
+      <Checkbox onSearch={onSearch} words={words} /* reset={reset} */ filterLetter={filterLetter} onChecked={onChecked} /* setWords={setWords} */ />
       {/* <Words words={words} /> */}
     </>
   );
